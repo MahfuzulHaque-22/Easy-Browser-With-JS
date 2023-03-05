@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Web Browser</title>
+    <style>
+        #browser {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="url">
+    <button id="go">Go</button>
+    <button id="back">Back</button>
+    <button id="forward">Forward</button>
+    <button id="reload">Reload</button>
+    <div id="browser"></div>
+    <script>
+        const urlInput = document.getElementById("url");
+        const goButton = document.getElementById("go");
+        const backButton = document.getElementById("back");
+        const forwardButton = document.getElementById("forward");
+        const reloadButton = document.getElementById("reload");
+        const browser = document.getElementById("browser");
+
+        let currentUrl = "https://www.google.com";
+
+        const updateUrl = () => {
+            urlInput.value = currentUrl;
+        };
+
+        const navigateToUrl = (url) => {
+            currentUrl = url;
+            browser.innerHTML = `<iframe src="${currentUrl}" width="100%" height="100%"></iframe>`;
+            updateUrl();
+        };
+
+        goButton.addEventListener("click", () => {
+            navigateToUrl(urlInput.value);
+        });
+
+        backButton.addEventListener("click", () => {
+            window.history.back();
+        });
+
+        forwardButton.addEventListener("click", () => {
+            window.history.forward();
+        });
+
+        reloadButton.addEventListener("click", () => {
+            location.reload();
+        });
+
+        navigateToUrl(currentUrl);
+    </script>
+</body>
+</html>
